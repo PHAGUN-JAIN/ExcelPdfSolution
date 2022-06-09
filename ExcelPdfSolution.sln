@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExcelPdf-Microservice", "ExcelPdf-Microservice\ExcelPdf-Microservice.csproj", "{0AD2F155-E01B-42C4-AC0E-0F20B0C3EDF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelPdf-App", "ExcelPdf-App\ExcelPdf-App.csproj", "{38CF7249-7B11-45DF-9991-42F2EF930CBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AD2F155-E01B-42C4-AC0E-0F20B0C3EDF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AD2F155-E01B-42C4-AC0E-0F20B0C3EDF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AD2F155-E01B-42C4-AC0E-0F20B0C3EDF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AD2F155-E01B-42C4-AC0E-0F20B0C3EDF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38CF7249-7B11-45DF-9991-42F2EF930CBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38CF7249-7B11-45DF-9991-42F2EF930CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38CF7249-7B11-45DF-9991-42F2EF930CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38CF7249-7B11-45DF-9991-42F2EF930CBE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3D55056F-FB3A-4CEF-96CC-5123CCE0C93B}
+	EndGlobalSection
+EndGlobal
