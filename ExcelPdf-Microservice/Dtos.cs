@@ -1,7 +1,15 @@
-﻿namespace ExcelPdf_Microservice
+﻿using ExcelPdf_Microservice.Models;
+
+namespace ExcelPdf_Microservice
 {
     public class Dtos
     {
-        public record AgentDto(string agent_code, string agent_name, string working_area, decimal commissiion, string phone,string country);
+        public record AgentDto(string AGENT_CODE, string AGENT_NAME, string WORKING_AREA, decimal COMMISSIION, string PHONE, string COUNTRY)
+        {
+            public static implicit operator AgentDto(Agent v)
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }

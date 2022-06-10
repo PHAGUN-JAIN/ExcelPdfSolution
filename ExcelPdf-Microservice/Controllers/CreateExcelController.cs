@@ -2,6 +2,7 @@
 using ExcelPdf_Microservice.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
+using static ExcelPdf_Microservice.Dtos;
 
 namespace ExcelPdf_Microservice.Controllers
 {
@@ -15,43 +16,70 @@ namespace ExcelPdf_Microservice.Controllers
         {
             _context = db;
         }
+
         [HttpGet]
-        public void Index()
+        public IEnumerable<Agent> Index()
         {
-            //IEnumerable<Agent>
 
             BindingFlags bindingFlags = BindingFlags.Public |
                                         BindingFlags.NonPublic |
                                         BindingFlags.Instance |
                                         BindingFlags.Static;
 
-            var fieldNames = typeof(Agent).GetFields()
-                                .Select(field => field.Name)
-                                .ToList();
+            List<string> names = new List<string>();
 
-
-            List<String> names = new List<string>();
+            //foreach (PropertyInfo field in typeof(Agent).GetProperties(bindingFlags))
+            //{
+            //    Console.WriteLine(field.Name);
+            //    names.Add(field.Name);
+            //}
 
             foreach (FieldInfo field in typeof(Agent).GetFields(bindingFlags))
             {
-                Console.WriteLine(field.Name);
+                //Console.WriteLine(field.Name);
                 names.Add(field.Name.Split('<', '>')[1]);
             }
 
             names.ForEach(Console.WriteLine);
-            //int count = 0;
-            //IEnumerable<Agent> obj = (IEnumerable<Agent>)_context.Agents;
-            //foreach (var item in obj)
-            //{
-            //    String retString = String.Empty;
 
-            //    Console.WriteLine(item.AGENT_CODE);
-            //    count++;
-            //}
-            //Console.WriteLine(count);
-            //return obj;
+            IEnumerable<Agent> obj = (IEnumerable<Agent>)_context.Agents;
+
+            // Console.WriteLine(_context.Agents);
+
+
+
+            foreach (var val in obj)
+            {
+                //foreach (var name in names)
+                //{
+                //    //Console.WriteLine(GetValues(obj, name));
+
+
+                //}
+                //List<String> vals = new List<String>();
+                //vals.Add(val.AGENT_CODE);
+                //vals.Add(val.AGENT_NAME);
+                //vals.Add(val.WORKING_AREA);
+                //vals.Add(val.COMMISSION.ToString());
+                //vals.Add(val.PHONE_NO);
+                //vals.Add(val.COUNTRY);
+
+                AgentDto vals = new(val.AGENT_CODE, val.AGENT_NAME, val.WORKING_AREA, val.COMMISSION, val.PHONE_NO, val.COUNTRY );
+
+                Console.WriteLine(vals);
+
+
+            }
+
+            return obj;
         }
-
+        //public static IEnumerable<object> GetValues<T>(IEnumerable<T> items, string propertyName)
+        //{
+        //    Type type = typeof(T);
+        //    var prop = type.GetProperty(propertyName);
+        //    foreach (var item in items)
+        //        yield return prop.GetValue(item, null);
+        //}
 
     }
 }
