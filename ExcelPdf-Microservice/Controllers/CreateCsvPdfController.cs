@@ -83,7 +83,7 @@ namespace ExcelPdf_Microservice.Controllers
         public ActionResult pdf()
         {
             var filePath = "E:\\data\\VisualStudio\\source\\repos\\ExcelPdfSolution\\ExcelPdf-Microservice\\Temp\\gud.pdf";
-            string csv = string.Empty;
+            
             System.IO.File.Delete(filePath);
             BindingFlags bindingFlags = BindingFlags.Public |
                                         BindingFlags.NonPublic |
@@ -103,13 +103,11 @@ namespace ExcelPdf_Microservice.Controllers
 
             foreach (var val in obj)
             {
-
                 AgentDto vals = new(val.AGENT_CODE, val.AGENT_NAME, val.WORKING_AREA, val.COMMISSION, val.PHONE_NO, val.COUNTRY);
                 valsArr.Add(vals);
-                csv += vals;
             }
 
-            var lines = System.IO.File.ReadAllLines("E:\\data\\VisualStudio\\source\\repos\\ExcelPdfSolution\\ExcelPdf-Microservice\\Temp\\reports.csv", Encoding.UTF8).Select(a => a.Split(";"));
+            //var lines = System.IO.File.ReadAllLines("E:\\data\\VisualStudio\\source\\repos\\ExcelPdfSolution\\ExcelPdf-Microservice\\Temp\\reports.csv", Encoding.UTF8).Select(a => a.Split(";"));
 
             // This code is for export Database data to PDF file
             string fileName = Guid.NewGuid() + ".pdf";
@@ -129,19 +127,12 @@ namespace ExcelPdf_Microservice.Controllers
                 pdfTab.SpacingBefore = 20f;
                 pdfTab.SpacingAfter = 20f;
 
-                //List<CityData> data = new List<CityData>();
-                //using (MyDatabaseEntities dc = new MyDatabaseEntities())
-                //{
-                //    data = dc.CityDatas.OrderBy(a => a.Country).ThenBy(a => a.State).ThenBy(a => a.City).ToList();
-                //}
-
                 names.ForEach(pdfTab.AddCell);
 
                 foreach (var val in obj)
                 {
                     AgentDto vals = new(val.AGENT_CODE, val.AGENT_NAME, val.WORKING_AREA, val.COMMISSION, val.PHONE_NO, val.COUNTRY);
                     valsArr.Add(vals);
-                    csv += vals;
                 }
 
                 foreach (AgentDto val in valsArr)
@@ -159,14 +150,6 @@ namespace ExcelPdf_Microservice.Controllers
                 doc.Add(p);
                 doc.Add(pdfTab);
                 doc.Close();
-
-                //byte[] content = File.ReadAllBytes(filePath);
-                //HttpContext context = HttpContext.Current;
-
-                //context.Response.BinaryWrite(content);
-                //context.Response.ContentType = "application/pdf";
-                //context.Response.AppendHeader("Content-Disposition", "attachment; filename=" + fileName);
-                //context.Response.End();
             }
             catch (Exception)
             {
@@ -177,7 +160,7 @@ namespace ExcelPdf_Microservice.Controllers
             {
                 doc.Close();
             }
-            var filepath = "E:\\data\\VisualStudio\\source\\repos\\ExcelPdfSolution\\ExcelPdf-Microservice\\Temp\\";
+            var filepath = @"E:\data\VisualStudio\source\repos\ExcelPdfSolution\ExcelPdf-Microservice\Temp\";
             var filename = "gud.pdf";
             IFileProvider provider = new PhysicalFileProvider(filepath);
             IFileInfo fileInfo = provider.GetFileInfo(filename);
