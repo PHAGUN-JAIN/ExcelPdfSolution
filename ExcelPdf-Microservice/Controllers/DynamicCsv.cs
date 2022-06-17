@@ -1,6 +1,12 @@
-﻿using ExcelPdf_Microservice.Models;
+﻿using CsvHelper;
+using ExcelPdf_Microservice.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Dynamic;
+using System.Globalization;
 using System.Reflection;
+using System.Text.Json;
 
 namespace ExcelPdf_Microservice.Controllers
 {
@@ -28,10 +34,52 @@ namespace ExcelPdf_Microservice.Controllers
         }
 
         [HttpGet]
+        [Route("jsonParameter")]
         public IActionResult jsonvVals()
         {
 
-            return null;
+            return Content("hello json");
+        }
+
+        [HttpPost]
+        [Route("jsonParameter")]
+        public ActionResult jsonvValsPost(object jsonParam)
+        {
+            using var mem = new MemoryStream();
+            using var writer = new StreamWriter(mem);
+            using var csvWriter = new CsvWriter(writer, CultureInfo.CurrentCulture);
+
+            var jobject = JsonConvert.DeserializeObject<JObject>(jsonParam.ToString());
+
+
+            foreach (var oParam in jobject)
+            {
+                int count = oParam.Value.Count();
+
+                for (int i = 0; i < count; i++)
+                {
+                    string temp = JsonConvert.SerializeObject(oParam.Value[i]);
+                    JObject jObj = JObject.Parse(temp);
+
+                    //foreach(JProperty property in jObj.Properties())
+                    //{
+                    //    csvWriter.WriteField(property.Name);
+                    //}
+
+                    foreach (JProperty defProp in jObj.Properties())
+                    {
+                        //Console.WriteLine(defProp.Name + " " + defProp.Value);
+                        String tempVal = defProp.Value.ToString();
+                        csvWriter.WriteField(tempVal);
+                    }
+                    csvWriter.NextRecord();
+                }
+
+            }
+            writer.Flush();
+
+            return File(mem.ToArray(), "application/octet-stream", "reports.csv");
+
         }
     }
 }
